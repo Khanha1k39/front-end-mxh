@@ -1,24 +1,29 @@
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const navigate = useNavigate();
   function loginHandler(e) {
     e.preventDefault();
     console.log(e);
-    const pw = document.getElementById("password").value;
+    const password = document.getElementById("password").value;
     const email = document.getElementById("email").value;
 
     fetch("http://localhost:8080/login", {
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, pw }),
+      body: JSON.stringify({ email, password }),
     })
       .then((result) => {
+        console.log(result);
         if (!result.ok) {
           alert("error");
         }
         return result.json();
       })
       .then((result) => {
+        navigate("/");
         console.log(result);
       })
       .catch((err) => console.log(err));
