@@ -5,8 +5,10 @@ import HomePage from "./pages/HomePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/Reset";
+import LoginTest from "./pages/LoginTest";
 
 const router = createBrowserRouter([
+  { path: "/logintest", element: <LoginTest></LoginTest> },
   { path: "/", element: <HomePage></HomePage> },
   { path: "/login", element: <Login></Login> },
   { path: "/signup", element: <SignUp></SignUp> },

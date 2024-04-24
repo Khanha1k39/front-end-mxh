@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "../components/NavBar/NavBar";
 import "./HomePage.css";
+import styles from "./../components/Post/Posts.module.css";
 export default function HomePage() {
   function postImageHandler(e) {
     e.preventDefault();
@@ -26,11 +27,12 @@ export default function HomePage() {
     <>
       <Container fluid={true} className="mr-0 ml-0">
         <Row>
-          <Col className="border-right" xs={3}>
-            First, but last
-            <Navbar></Navbar>
+          <Col xs={3} className={styles.hscroll}>
+            <div>
+              <Navbar></Navbar>
+            </div>
           </Col>
-          <Col xs={6}>
+          <Col className={`${styles.scrollingcolumn}`} xs={6}>
             <Posts></Posts>
           </Col>
           <Col xs={3}>Third, but first</Col>

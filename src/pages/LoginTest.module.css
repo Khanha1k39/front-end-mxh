@@ -1,0 +1,13 @@
+.container{
+    width: 100 vw;
+    height: 100vh;
+}
+.form{
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    border-radius: 8px;
+    background-color: white;
+}
+.btnsubmit{
+    width: 50%;
+    margin: auto;
+}
