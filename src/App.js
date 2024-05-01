@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/Reset";
 import LoginTest from "./pages/LoginTest";
-
+import Inbox from "./pages/Inbox";
 const router = createBrowserRouter([
   { path: "/logintest", element: <LoginTest></LoginTest> },
   { path: "/", element: <HomePage></HomePage> },
@@ -14,6 +14,7 @@ const router = createBrowserRouter([
   { path: "/signup", element: <SignUp></SignUp> },
   { path: "/resetpassword", element: <ResetPassword></ResetPassword> },
   { path: "/reset/:token", element: <ChangePassword></ChangePassword> },
+  { path: "/inbox", element: <Inbox></Inbox> },
 ]);
 function App() {
   return <RouterProvider router={router}></RouterProvider>;
