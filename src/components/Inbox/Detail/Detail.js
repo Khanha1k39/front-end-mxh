@@ -19,7 +19,7 @@ function Detail() {
         <div className={`${style.option}`}>
           <div className={`${style.title}`}>
             <span>Shared Photos</span>
-            <img src="./arrowDown.png"></img>
+            <img src="./arrowUp.png"></img>
           </div>
         </div>
 

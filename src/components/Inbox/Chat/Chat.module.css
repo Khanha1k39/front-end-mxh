@@ -86,11 +86,17 @@ input{
     
 }
 .texts >img{
-    width: 200px;
+    width: 300px;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
 
+}
+.own>.texts>img{
+    align-self: flex-end;
+}
+.own>.texts>span{
+    align-self: flex-end;
 }
 .own{
     align-self: flex-end;
@@ -98,4 +104,17 @@ input{
 .own p{
     background-color: #0084ff;
     color: #fff;
+}
+.texts>img{
+    cursor: pointer;
+}
+
+.containerModal{
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3c5077A0;
+    align-items: center;
+    justify-content: center;
 }
