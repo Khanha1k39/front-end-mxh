@@ -6,10 +6,38 @@ import Row from "react-bootstrap/Row";
 import * as formik from "formik";
 import * as yup from "yup";
 import style from "./LoginTest.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import useLogin from "../hoooks/useLogin";
 function SignupForm() {
+  const { loading, login } = useLogin();
   const { Formik } = formik;
-
+  const navigate = useNavigate();
+  const loginHandler = async ({ email, password }) => {
+    // fetch("http://localhost:8080/login", {
+    //   credentials: "include",
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ email, password }),
+    // })
+    await login({ email, password });
+    // .then((result) => {
+    //   console.log(result);
+    //   if (!result.ok) {
+    //     return;
+    //     console.log("2");
+    //   } else {
+    //     return result.json().then((result) => {
+    //       console.log(result);
+    //       const token = result.token;
+    //       localStorage.setItem("token", token);
+    //       navigate("/");
+    //     });
+    //   }
+    // });
+  };
   const schema = yup.object().shape({
     email: yup.string().required("Email is required").email("Invalid email"),
     password: yup
@@ -17,14 +45,13 @@ function SignupForm() {
       .required("Password is required")
       .min(6, "At least 6 characters!"),
   });
-  console.log(Formik);
   return (
     <div
       className={` d-flex justify-content-center  align-items-start mt-5 ${style.container}`}
     >
       <Formik
         validationSchema={schema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={loginHandler}
         initialValues={{
           email: "",
           password: "",
@@ -87,14 +114,7 @@ function SignupForm() {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-
-            <Button
-              className={` ${style.btnsubmit} w-100  `}
-              onClick={() => {
-                console.log(errors);
-              }}
-              type="submit"
-            >
+            <Button className={` ${style.btnsubmit} w-100  `} type="submit">
               Log in
             </Button>
 

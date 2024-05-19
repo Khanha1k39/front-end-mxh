@@ -3,6 +3,8 @@ import { Col, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import { Row, FloatingLabel } from "react-bootstrap";
 import styles from "./LoginTest.module.css";
+import { useAuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 const days = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -33,6 +35,11 @@ const validate = (values) => {
 };
 
 const LoginTest = () => {
+  const { authUser } = useAuthContext();
+  const navigate = useNavigate();
+  if (authUser) {
+    navigate("/");
+  }
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -44,7 +51,7 @@ const LoginTest = () => {
     },
     validate,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log(values);
     },
   });
   return (
@@ -55,7 +62,10 @@ const LoginTest = () => {
         <Form
           noValidate
           className={` ${styles.form} p-3 `}
-          onSubmit={formik.handleSubmit}
+          onSubmit={(event) => {
+            event.preventDefault();
+            const values = formik.values;
+          }}
         >
           <Row>
             <Form.Group

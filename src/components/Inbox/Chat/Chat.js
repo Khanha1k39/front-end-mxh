@@ -3,6 +3,9 @@ import Button from "react-bootstrap/Button";
 import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import useConversation from "../../../zustand/useConversation";
+import useGetMessages from "../../../hoooks/useGetMessage";
+import useSendMessage from "../../../hoooks/useSendMessage";
 function Chat() {
   const [openEmj, setOpenEmj] = useState(false);
   const [msgInput, setMsgInput] = useState("");
@@ -10,10 +13,24 @@ function Chat() {
     setMsgInput((pre) => pre + e.emoji);
   };
 
+  const { seletectedConversation, setSeletectedConversation } =
+    useConversation();
   //show image when click
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const { messages } = useGetMessages();
+  const { sendMessage } = useSendMessage();
+  console.log("messages", messages);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (msgInput.trim() === "") {
+      return;
+    }
+
+    await sendMessage(msgInput);
+    setMsgInput("");
+  };
   return (
     <>
       <div className={`${style.chat}`}>
@@ -91,6 +108,7 @@ function Chat() {
             <img src="./mic.png"></img>
             <img src="./img.png"></img>
           </div>
+
           <input
             className="p-1"
             type="text"
@@ -114,14 +132,11 @@ function Chat() {
               ></EmojiPicker>
             </div>
           </div>
-          <Button variant="outline-primary">Send</Button>
+          <Button onClick={handleSubmit} variant="outline-primary">
+            Send
+          </Button>
         </div>
       </div>
-
-      {/* //show model image */}
-      {/* <div className={`${style.containerModal}`}>
-        <div className={`${style.popup}`}></div>
-      </div> */}
     </>
   );
 }
