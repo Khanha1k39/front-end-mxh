@@ -6,11 +6,20 @@
     flex-direction: column;
     height: 100%;
 }
-.user> img{
+.user img{
     width: 60px;
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
+}
+.activing{
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
 }
 .top{
     align-items: center;

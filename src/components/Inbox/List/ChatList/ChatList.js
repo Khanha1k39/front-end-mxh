@@ -10,7 +10,7 @@ function ChatList() {
   const { loading, conversations } = useGetConversation();
   const { onlineUsers } = useSocketContext();
   console.log("onlineUser", onlineUsers);
-  console.log(conversations);
+  console.log("conversations", conversations);
 
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
@@ -36,15 +36,15 @@ function ChatList() {
         </div>
       </div>
       <div className={`${style.listUsersInbox}  `}>
-        <div className={`${style.userInbox} gap-3 p-3 d-flex`}>
+        {/* <div className={`${style.userInbox} gap-3 p-3 d-flex`}>
           <img src="./avatar.png"></img>
           <div className={`${style.texts}  gap-1`}>
             <span className="fs-5 fw-bolder">Nguyen</span>
             <p className="m-0 fs-6 fw-normal">you 're free rn?</p>
           </div>
-        </div>
+        </div> */}
         {conversations.map((conversation) => {
-          const isOnline = onlineUsers.includes(conversation.email);
+          const isOnline = onlineUsers.includes(conversation.user.email);
           const isSelected = conversation.id === selectedConversation?.id;
           return (
             <div
@@ -53,15 +53,24 @@ function ChatList() {
                 isSelected ? "bg-primary" : ""
               } gap-3 p-3 d-flex`}
               onClick={() => {
+                console.log("conver", conversation);
                 setSelectedConversation(conversation);
               }}
             >
-              <img src="./avatar.png"></img>
+              {" "}
+              <div className="position-relative">
+                <img src="./avatar.png"></img>
+                {onlineUsers.includes(conversation?.user.email) ? (
+                  <div className={`${style.activing}`}></div>
+                ) : (
+                  ""
+                )}
+              </div>
               <div className={`${style.texts}  gap-1`}>
                 <span className="fs-5 fw-bolder">
                   {isOnline
-                    ? conversation.name + " Đang onlien"
-                    : conversation.name}
+                    ? conversation.user.name + " Đang onlien"
+                    : conversation.user.name}
                 </span>
                 <p className="m-0 fs-6 fw-normal">you 're free rn?</p>
               </div>

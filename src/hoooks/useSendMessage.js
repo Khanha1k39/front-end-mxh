@@ -8,8 +8,10 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8080/message/send/${selectedConversation.id}`,
+        `http://localhost:8080/message/send/${selectedConversation.user.id}`,
         {
+          credentials: "include",
+
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify({
@@ -25,7 +27,6 @@ const useSendMessage = () => {
       setMessages([...messages, data]);
     } catch (error) {
       toast.error(error.message);
-      console.log(error);
     } finally {
       setLoading(false);
     }

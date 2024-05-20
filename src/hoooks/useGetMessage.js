@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
+import useGetConversation from "./useGetConversations";
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
-  const { messages, setMessages, selectedConversation } = useConversation();
+  const {
+    messages,
+    setMessages,
+    setSelectedConversation,
+    selectedConversation,
+  } = useConversation();
+  const { conversations } = useGetConversation();
   useEffect(() => {
     const getMessages = async () => {
       setLoading(true);
+      console.log("selectedIdConver", selectedConversation.id);
       const res = await fetch(
         `http://localhost:8080/message/${selectedConversation.id}`,
         { credentials: "include" }
@@ -25,8 +33,14 @@ const useGetMessages = () => {
         setLoading(false);
       }
     };
+    console.log("selectedConversation", selectedConversation);
     if (selectedConversation?.id) {
       getMessages();
+    } else {
+      if (conversations.length > 0) {
+        setSelectedConversation(conversations[0]);
+        getMessages();
+      }
     }
   }, [setMessages, selectedConversation?.id]);
   return { messages, loading };

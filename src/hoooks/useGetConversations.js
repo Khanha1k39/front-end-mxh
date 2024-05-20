@@ -9,6 +9,7 @@ const useGetConversation = () => {
       setLoading(true);
       try {
         const res = await fetch("http://localhost:8080/message/conversations", {
+          // mode: "no-cors",
           credentials: "include",
         });
         const data = await res.json();
